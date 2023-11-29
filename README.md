@@ -10,3 +10,5 @@ I won't give installation instructions here for Ollama.  You can find what you n
 You also need to pip install langchain.
 
 Starting a conversation:  python3 conversation4.py --duration 60 --initial_prompt "What's a good car to buy?"  
+
+I've added a directory for LM Studio instead of Ollama. I need to set things like number of tokens, and as far as I can see, you can't do this in Ollama.  

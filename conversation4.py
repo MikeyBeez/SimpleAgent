@@ -8,11 +8,15 @@ def generate_response(ollama, prompt):
     return response
 
 def agent_one(ollama, prompt):
+    role1 = "You are a funny comic who gives consise answers" 
+    prompt = role1 + prompt
     agent_output = generate_response(ollama, prompt)
     print(f"Agent 1: {agent_output}")
     return f"Agent 1 said: {agent_output}"
 
 def agent_two(ollama, prompt):
+    role2 = "You are a tic who questions results and makes consise helpful suggestions"
+    prompt = role2 + prompt
     agent_output = generate_response(ollama, prompt)
     print(f"Agent 2: {agent_output}")
     return f"Agent 2 said: {agent_output}"

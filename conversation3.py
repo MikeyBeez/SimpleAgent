@@ -1,5 +1,7 @@
-import time  # We need time to control when the conversation ends.
-from langchain.llms import Ollama  # oddly, this is the correct import for Ollama.
+import time
+import argparse
+
+from langchain.llms import Ollama  # Assuming this is the correct import for Ollama
 
 def generate_response(ollama, prompt):
     response = ollama(prompt)
@@ -16,7 +18,7 @@ def agent_two(ollama, prompt):
     return f"Agent 2 said: {agent_output}"
 
 def run_conversation(ollama, conversation_duration, initial_prompt):
-    conversation_history = []
+    conversation_history = [initial_prompt]  # Initialize with the initial prompt
 
     # Get the start time of the conversation
     start_time = time.time()
@@ -24,7 +26,7 @@ def run_conversation(ollama, conversation_duration, initial_prompt):
     # Start the conversation loop
     while time.time() - start_time < conversation_duration:
         # Agent One's turn
-        agent_one_output = agent_one(ollama, initial_prompt if not conversation_history else conversation_history[-1])
+        agent_one_output = agent_one(ollama, conversation_history[-1])
         conversation_history.append(agent_one_output)
         time.sleep(1)
 
@@ -38,12 +40,26 @@ def run_conversation(ollama, conversation_duration, initial_prompt):
         time.sleep(1)
 
 if __name__ == "__main__":
+    
+    # Get the command-line arguments
+    parser = argparse.ArgumentParser(description="Process two arguments.")
+    parser.add_argument("--duration", type=int, help="Duration of the conversation in seconds")
+    parser.add_argument("--initial_prompt", type=str, help="Initial prompt for the conversation")
+
+    # Parse command-line arguments
+    args = parser.parse_args()
+
+    if args.duration is None or args.initial_prompt is None:
+        print("Both --duration and --initial_prompt are required.")
+    else:
+        # Use the arguments in your program logic
+        # For example, you can store them in variables:
+        duration = args.duration
+        initial_prompt = args.initial_prompt
+
+
     # Assuming Ollama is properly instantiated with the correct parameters
     ollama = Ollama(base_url='http://localhost:11434', model="llama2")
 
-    # Set the duration of the conversation in seconds and the initial prompt
-    conversation_duration = 10
-    initial_prompt = "Hello"
-
-    run_conversation(ollama, conversation_duration, initial_prompt)
+    run_conversation(ollama, duration, initial_prompt)
 

@@ -7,4 +7,6 @@ I've also added some additional versions with increading complexityr; so convers
 
 I won't give installation instructions here for Ollama.  You can find what you need at https://www.ollama.ai.  Understand however that Ollama needs to be running.  Then you do need to pip install ollama in your environment. If you have trouble, there are a lot of youtube videos for installing ollama.  
 
+You also need to pip install langchain.
+
 Starting a conversation:  python3 conversation4.py --duration 60 --initial_prompt "What's a good car to buy?"  

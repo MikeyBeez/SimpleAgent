@@ -4,32 +4,34 @@ import openai
 
 def generate_response(prompt):
     result = openai.ChatCompletion.create(
-        model="local-model", # this field is currently unused
+        model="local-model",  # this field is currently unused
         messages=[
-            {"role": "system", "content": "Always answer in rhymes."},
+            {"role": "system", "content": "Always answer with concise replies."},
             {"role": "user", "content": prompt}
-        ]  
- )
- 
+        ]
+    )
+
     response = result.choices[0].message
     return response
 
 def agent_one(prompt):
-    role1 = "You are a funny comic who gives concise answers"
-    prompt = role1 + prompt
+    identifies1 = "You are a funny comic who gives concise answers"
+    prompt = identifies1 + prompt
     agent_output = generate_response(prompt)
     print(f"Agent 1: {agent_output}")
-    return f"Agent 1 said: {agent_output}"
+    return agent_output
 
 def agent_two(prompt):
-    role2 = "You are a tic who questions results and makes concise helpful suggestions"
-    prompt = role2 + prompt
+    identitfies2 = "You are a critic who questions results and makes concise helpful suggestions"
+    prompt = identitfies2 + prompt
     agent_output = generate_response(prompt)
     print(f"Agent 2: {agent_output}")
-    return f"Agent 2 said: {agent_output}"
+    return agent_output
 
 def run_conversation(conversation_duration, initial_prompt):
     conversation_history = [initial_prompt]  # Initialize with the initial prompt
+    prompt1 = initial_prompt
+    prompt2 = ""
 
     # Get the start time of the conversation
     start_time = time.time()
@@ -37,8 +39,11 @@ def run_conversation(conversation_duration, initial_prompt):
     # Start the conversation loop
     while time.time() - start_time < conversation_duration:
         # Agent One's turn
-        agent_one_output = agent_one(conversation_history[-1])
-        conversation_history.append(agent_one_output)
+        agent_one_output = agent_one(prompt1)
+        conversation_history.append(f"Agent 1 said: {agent_one_output}")
+        prompt2 = agent_one_output["content"]
+        print("prompt2")
+        print(prompt2)
         time.sleep(1)
 
         # Check if the conversation duration has been reached
@@ -46,9 +51,14 @@ def run_conversation(conversation_duration, initial_prompt):
             break
 
         # Agent Two's turn
-        agent_two_output = agent_two(conversation_history[-1])
-        conversation_history.append(agent_two_output)
+        agent_two_output = agent_two(prompt2)
+        conversation_history.append(f"Agent 2 said: {agent_two_output}")
+        prompt1 = agent_two_output["content"]
         time.sleep(1)
+
+    print("\nConversation History:")
+    for entry in conversation_history:
+        print(entry)
 
 if __name__ == "__main__":
     # Get the command-line arguments
@@ -68,10 +78,8 @@ if __name__ == "__main__":
         initial_prompt = args.initial_prompt
 
         # Assuming LMStudio is properly instantiated with the correct parameters
- 
-        openai.api_base = "http://localhost:1234/v1" # point to the local server
-        openai.api_key = "" # no need for an API key
 
+        openai.api_base = "http://localhost:1234/v1"  # point to the local server
+        openai.api_key = ""  # no need for an API key
 
         run_conversation(duration, initial_prompt)
-

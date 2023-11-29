@@ -6,7 +6,7 @@ def generate_response(prompt):
     result = openai.ChatCompletion.create(
         model="local-model", # this field is currently unused
         messages=[
-            {"role": "system", "content": "Always answer in rhymes."},
+            {"role": "system", "content": "Always answer with concise replies."},
             {"role": "user", "content": prompt}
         ]  
  )
@@ -22,7 +22,7 @@ def agent_one(prompt):
     return f"Agent 1 said: {agent_output}"
 
 def agent_two(prompt):
-    role2 = "You are a tic who questions results and makes concise helpful suggestions"
+    role2 = "You are a critic who questions results and makes concise helpful suggestions"
     prompt = role2 + prompt
     agent_output = generate_response(prompt)
     print(f"Agent 2: {agent_output}")
@@ -30,6 +30,7 @@ def agent_two(prompt):
 
 def run_conversation(conversation_duration, initial_prompt):
     conversation_history = [initial_prompt]  # Initialize with the initial prompt
+    prompt2 = initial_prompt
 
     # Get the start time of the conversation
     start_time = time.time()
@@ -37,8 +38,11 @@ def run_conversation(conversation_duration, initial_prompt):
     # Start the conversation loop
     while time.time() - start_time < conversation_duration:
         # Agent One's turn
-        agent_one_output = agent_one(conversation_history[-1])
+        prompt1 = agent_one_output = agent_one(prompt2)
         conversation_history.append(agent_one_output)
+        # print("agent_one_output")
+        # print(agent_one_output)
+        prompt1 = agent_one_output
         time.sleep(1)
 
         # Check if the conversation duration has been reached
@@ -46,8 +50,9 @@ def run_conversation(conversation_duration, initial_prompt):
             break
 
         # Agent Two's turn
-        agent_two_output = agent_two(conversation_history[-1])
+        agent_two_output = agent_two(prompt1)
         conversation_history.append(agent_two_output)
+        prompt1 = agent_two_output
         time.sleep(1)
 
 if __name__ == "__main__":

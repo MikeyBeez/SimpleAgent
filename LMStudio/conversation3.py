@@ -11,27 +11,30 @@ def generate_response(prompt):
         ]
     )
 
-    response = result.choices[0].message
+    response = result.choices[0]
     return response
 
 def agent_one(prompt):
     identifies1 = "You are a funny comic who gives concise answers"
     prompt = identifies1 + prompt
     agent_output = generate_response(prompt)
-    print(f"Agent 1: {agent_output}")
-    return agent_output
+    print(f"Agent 1 from agent_one: {agent_output}")
+    content = agent_output['message']['content']
+    print(f"Agent 1 content: {content}")
+
+
+    return content
 
 def agent_two(prompt):
-    identitfies2 = "You are a critic who questions results and makes concise helpful suggestions"
-    prompt = identitfies2 + prompt
+    identifies2 = "You are a critic who questions results and makes concise helpful suggestions"
+    prompt = identifies2 + prompt
     agent_output = generate_response(prompt)
     print(f"Agent 2: {agent_output}")
-    return agent_output
+    return {"role": "assistant", "content": agent_output}
 
 def run_conversation(conversation_duration, initial_prompt):
     conversation_history = [initial_prompt]  # Initialize with the initial prompt
     prompt1 = initial_prompt
-    prompt2 = ""
 
     # Get the start time of the conversation
     start_time = time.time()
@@ -40,10 +43,10 @@ def run_conversation(conversation_duration, initial_prompt):
     while time.time() - start_time < conversation_duration:
         # Agent One's turn
         agent_one_output = agent_one(prompt1)
+        print(f"The value of agent_one_output is: {agent_one_output}")
         conversation_history.append(f"Agent 1 said: {agent_one_output}")
         prompt2 = agent_one_output["content"]
-        print("prompt2")
-        print(prompt2)
+        print(f"The value of prompt2 is: {prompt2}")
         time.sleep(1)
 
         # Check if the conversation duration has been reached
@@ -54,7 +57,7 @@ def run_conversation(conversation_duration, initial_prompt):
         agent_two_output = agent_two(prompt2)
         conversation_history.append(f"Agent 2 said: {agent_two_output}")
         prompt1 = agent_two_output["content"]
-        time.sleep(1)
+        time.sleep(2)
 
     print("\nConversation History:")
     for entry in conversation_history:

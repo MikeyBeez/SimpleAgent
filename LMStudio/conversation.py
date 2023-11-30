@@ -36,14 +36,14 @@ def run_conversation(conversation_duration, initial_prompt):
     conversation_history = [initial_prompt]  # Initialize with the initial prompt
     prompt1 = initial_prompt
     agent_one_output = agent_one(prompt1)
-    content = agent_one_output
-    prompt2 = content
+    prompt2 = agent_one_output
     conversation_history.append(f"Agent 1 said: {agent_one_output}")
     # Get the start time of the conversation
     start_time = time.time()
     # Start the conversation loop
     while time.time() - start_time < conversation_duration:
-        # Agent One's turn
+        # Agent Two's turn
+        print(f"prompt2 = {prompt2}")
         agent_two_output = agent_two(prompt2)
         # print(f"The value of agent_two_output is: {agent_two_output}")
         conversation_history.append(f"Agent 2 said: {agent_two_output}")

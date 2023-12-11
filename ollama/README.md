@@ -1,0 +1,1 @@
+I've been trying different methods for interacting with ollama.  So far ollama's API examples work best.  I've copied their client.py file into test9.py.  This is the method I'll be using to modify my conversation program.

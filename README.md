@@ -1,5 +1,13 @@
 # SimpleAgent -- Empowering Novice Agents with SimpleAgent: A Journey into Conversational AI
 
+Installation:
+Install and run the ollama application from ollama.ai
+git clone https://github.com/MikeyBeez/SimpleAgent.git
+cd SimpleAgent
+conda create -n sa Python 3.10.9
+conda activate sa
+pip install langchain
+
 In the realm of conversational AI, crafting intelligent agents often presents a daunting task for beginners. Existing projects, such as autogen, while impressive, can overwhelm novices with their sheer complexity. This is where SimpleAgent emerges as a beacon of clarity, providing a simplified learning environment for aspiring agentsmiths.
 
  At the heart of SimpleAgent lies the philosophy of minimalism. By stripping away unnecessary layers of code, we unveil the fundamental principles of conversational reasoning, making them more accessible to those embarking on their AI odyssey.

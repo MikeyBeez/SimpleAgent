@@ -21,3 +21,5 @@ In the realm of conversational AI, crafting intelligent agents often presents a 
  While SimpleAgent currently leans on Ollama for simplicity's sake, its ultimate aspiration lies in harnessing the power of Huggingface models directly through PyTorch. However, acknowledging the complexity of this endeavor, SimpleAgent prioritizes the needs of novice learners, guiding them towards a seamless entry into the world of conversational AI.
 
  In conclusion, SimpleAgent emerges as a beacon of clarity in the often-murky landscape of conversational AI. Its commitment to simplicity, coupled with its emphasis on gradual learning, empowers novice agentsmiths to embark on their AI journeys with confidence and enthusiasm.
+
+ The new program conversation6.py is a functioning version using the requests library with ollama.  This solves the latency problem. At this speed, I should be able to use something like the say command to speak the text.   

@@ -23,3 +23,4 @@ In the realm of conversational AI, crafting intelligent agents often presents a 
  In conclusion, SimpleAgent emerges as a beacon of clarity in the often-murky landscape of conversational AI. Its commitment to simplicity, coupled with its emphasis on gradual learning, empowers novice agentsmiths to embark on their AI journeys with confidence and enthusiasm.
 
  The new program conversation6.py is a functioning version using the requests library with ollama.  This solves the latency problem. At this speed, I should be able to use something like the say command to speak the text.   
+Here's how to run it:  python3 conversation6.py --duration 30 --initial_prompt "have a short conversation about the weather."   

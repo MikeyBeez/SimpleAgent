@@ -32,3 +32,5 @@ In the realm of conversational AI, crafting intelligent agents often presents a 
 
  The new program conversation6.py is a functioning version using the requests library with ollama.  This solves the latency problem. At this speed, I should be able to use something like the say command to speak the text.   
 Here's how to run it:  python3 conversation6.py --duration 30 --initial_prompt "have a short conversation about the weather."   
+
+When you are done try all the ollama examples:  https://github.com/jmorganca/ollama/tree/main/examples

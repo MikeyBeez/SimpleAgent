@@ -20,30 +20,35 @@ def generate_response(prompt, context, role):
                           'model': 'llama2',
                           'prompt': prompt,
                           'context': context,
-                          'max_tokens': 100,  # Limit the response to 100 tokens
+                          'max_tokens': 50,  # Limit the response to 50 tokens
                       },
                       stream=True)
     r.raise_for_status()
 
+    response = ""
     for line in r.iter_lines():
         body = json.loads(line)
         response_part = body.get('response', '')
+        response += response_part
         print(role.colored_text(response_part), end='', flush=True)
 
         if 'error' in body:
             raise Exception(body['error'])
 
         if body.get('done', False):
-            return body['context']
+            return response
 
 def run_conversation(conversation_duration, initial_prompt):
     context = []  # the context stores a conversation history, you can use this to make the model more context aware
     start_time = time.time()
     role = advocate  # Start with the advocate role
+    prompt = initial_prompt
 
     while time.time() - start_time < conversation_duration:
         # Agent's turn
-        context = generate_response(initial_prompt, context, role)
+        print(role.name)
+        role_prompt = f"what are three common arguments that support the idea that {prompt}" if role == advocate else f"what are three common arguments that critique the idea that {prompt}"
+        prompt = generate_response(role_prompt, context, role)
         time.sleep(6)
 
         # Switch roles

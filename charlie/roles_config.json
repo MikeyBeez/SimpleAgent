@@ -1,0 +1,12 @@
+{
+    "Advocate": {
+        "color": "34"
+    },
+    "Critic": {
+        "color": "31"
+    },
+    "Arbitrator": {
+        "color": "33"
+    }
+}
+

@@ -6,11 +6,19 @@ from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
 import gradio as gr
 
+# Initialize variables to store the previous URL and its corresponding data
+prev_url = None
+prev_data = None
+
 def process_url_and_question(url: str, question: str):
-    loader = WebBaseLoader(url)
-    data = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-    all_splits = text_splitter.split_documents(data)
+    global prev_url, prev_data
+    if url != prev_url:
+        loader = WebBaseLoader(url)
+        prev_data = loader.load()
+        prev_url = url
+
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0)
+    all_splits = text_splitter.split_documents(prev_data)
     vectorstore = Chroma.from_documents(documents=all_splits, embedding=GPT4AllEmbeddings())
 
     ollama = Ollama(base_url="http://localhost:11434", model="llama2")

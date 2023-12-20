@@ -34,3 +34,5 @@ In the realm of conversational AI, crafting intelligent agents often presents a 
 Here's how to run it:  python3 conversation6.py --duration 30 --initial_prompt "have a short conversation about the weather."   
 
 When you are done try all the ollama examples:  https://github.com/jmorganca/ollama/tree/main/examples
+
+I've added two files in the ollama directory to do retrieval augmented generation, testRAG1.py and RAGtool.py.  RAGtool.py was written entirely by Microsoft Copilot.  Enjoy!

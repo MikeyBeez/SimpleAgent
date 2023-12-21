@@ -4,6 +4,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import GPT4AllEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
+from langchain.chat_models.ollama import ChatOllama
 import streamlit as st
 
 # Initialize variables to store the previous URL and its corresponding data and embeddings
@@ -11,7 +12,7 @@ prev_url = None
 prev_data = None
 prev_vectorstore = None
 
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def process_url_and_question(url: str, question: str):
     global prev_url, prev_data, prev_vectorstore
     if url != prev_url:
@@ -23,7 +24,8 @@ def process_url_and_question(url: str, question: str):
         prev_vectorstore = Chroma.from_documents(documents=all_splits, embedding=GPT4AllEmbeddings())
 
     ollama = Ollama(base_url="http://localhost:11434", model="llama2")
-    qachain = RetrievalQA.from_chain_type(ollama, retriever=prev_vectorstore.as_retriever())
+    chat_ollama = ChatOllama()
+    qachain = RetrievalQA.from_chain_type(chat_ollama, retriever=prev_vectorstore.as_retriever())
 
     result = qachain({"query": question})
     return result

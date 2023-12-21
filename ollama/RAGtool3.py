@@ -17,7 +17,7 @@ def process_url_and_question(url: str, question: str):
         loader = WebBaseLoader(url)
         prev_data = loader.load()
         prev_url = url
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=20)
         all_splits = text_splitter.split_documents(prev_data)
         prev_vectorstore = Chroma.from_documents(documents=all_splits, embedding=GPT4AllEmbeddings())
 

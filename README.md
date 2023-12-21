@@ -36,3 +36,6 @@ Here's how to run it:  python3 conversation6.py --duration 30 --initial_prompt "
 When you are done try all the ollama examples:  https://github.com/jmorganca/ollama/tree/main/examples
 
 I've added two files in the ollama directory to do retrieval augmented generation, testRAG1.py and RAGtool.py.  RAGtool.py was written entirely by Microsoft Copilot.  Enjoy!
+
+I've switched from Gradio to Streamlit which seems more full functioned.  Look at RAGtool6.py.
+

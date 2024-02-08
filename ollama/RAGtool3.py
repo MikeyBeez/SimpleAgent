@@ -5,6 +5,9 @@ from langchain.embeddings import GPT4AllEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
 import gradio as gr
+from transformers import pipeline
+
+p = pipeline("automatic-speech-recognition", model="openai/whisper-base.en")
 
 # Initialize variables to store the previous URL and its corresponding data and embeddings
 prev_url = None

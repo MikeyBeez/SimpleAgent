@@ -9,7 +9,7 @@ RESET_COLOR = '\033[0m'
 nltk.download('punkt') 
 
 llm = Ollama(model="llama2")
-query = "Tell me a joke. Why did the bicycle fall over?" 
+query = "Explain how large language models work" 
 
 sentence_buffer = ""
 

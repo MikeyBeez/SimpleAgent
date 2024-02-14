@@ -39,3 +39,5 @@ I've added two files in the ollama directory to do retrieval augmented generatio
 
 I've switched from Gradio to Streamlit which seems more full functioned.  Look at RAGtool6.py.
 
+
+I just added face.py that can be modified to give an agent emotion and personality.
